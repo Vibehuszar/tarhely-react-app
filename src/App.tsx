@@ -17,7 +17,7 @@ interface Tarhely{
 }
 
 interface TarhelyListResponse{
-  tarhelyek: Tarhely[];
+  tarhelycsomagok: Tarhely[];
 }
 
 class App extends Component<{}, State>{
@@ -37,7 +37,7 @@ class App extends Component<{}, State>{
     let response = await fetch('http://localhost:3000/api/tarhely');
     let data = await response.json() as TarhelyListResponse;
     this.setState({
-      tarhelyek: data.tarhelyek, 
+      tarhelyek: data.tarhelycsomagok, 
     })
   }
 
@@ -82,11 +82,12 @@ class App extends Component<{}, State>{
     Név: <input type="text" value={nevInput} onChange={e => this.setState({ nevInput: e.currentTarget.value})} /> <br />
     Méret: <input type="number" value={meretInput} onChange={e => this.setState({ meretInput: parseInt(e.currentTarget.value) })}/> <br />
     Ár: <input type="number" value={arInput} onChange={e => this.setState({ arInput: parseInt(e.currentTarget.value) })} /> <br />
-    <button onClick={this.handleUpload}>Regisztráció</button> <br />
+    <button onClick={this.handleUpload}>Hozzáad</button> <br />
     <h2>Tárhelyek:</h2>
     <ul>{
           this.state.tarhelyek.map(tarhely => 
-          <li>{tarhely.nev}</li>
+          <li>{tarhely.nev}, {tarhely.meret}GB, {tarhely.ar}Ft/hó</li>
+          
           )
         }</ul>
     </div>
